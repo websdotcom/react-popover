@@ -23,7 +23,7 @@ There is a demo that you can see https://littlebits.github.io/react-popover/buil
 
 ## API
 
-### `export default` `Popover(props, target)`
+### `export default` `Popover(props)`
 
 #### `props :: {...}`
 
@@ -65,6 +65,6 @@ The polling speed (AKA time between each poll) in milliseconds for checking if a
 
 ---
 
-#### `target :: React Element`
+##### `target :: DOM Node`
 
-- The React Element that this popover will orient itself around. `target` `rendering tree` is unaffected. `Popover` _will_ become its `owner`.
+- The existing DOM node that this popover will orient itself around.

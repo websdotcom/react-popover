@@ -78,7 +78,8 @@ let Demo = React.createClass({
     }
 
     let draggableProps = {
-      handle: '.Target-Move'
+      handle: '.Target-Move',
+      ref: 'target'
     }
 
     let target = (
@@ -90,15 +91,21 @@ let Demo = React.createClass({
         )
     )
 
-    let popoverProps = {
-      isOpen: this.state.popoverIsOpen,
-      preferPlace: this.state.preferPlace,
-      place: this.state.place,
-      onOuterAction: this.togglePopover.bind(null, false),
-      body: [
-        E.h1({}, 'Popover Title'),
-        E.div({}, 'Popover contents.')
-      ]
+    let popover = null
+
+    if (this.refs.target) {
+      let popoverProps = {
+        isOpen: this.state.popoverIsOpen,
+        preferPlace: this.state.preferPlace,
+        place: this.state.place,
+        onOuterAction: this.togglePopover.bind(null, false),
+        body: [
+          E.h1({}, 'Popover Title'),
+          E.div({}, 'Popover contents.')
+        ],
+        target: React.findDOMNode(this.refs.target)
+      }
+      popover = Popover(popoverProps)
     }
 
     let controls = (
@@ -115,9 +122,7 @@ let Demo = React.createClass({
       )
     )
 
-    let popover = Popover(popoverProps, target)
-
-    let app = E.div({}, controls, E.br(), popover)
+    let app = E.div({}, controls, E.br(), target, popover)
 
     return app
   }
