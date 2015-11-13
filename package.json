@@ -7,7 +7,7 @@
     "dev": "npm start",
     "test": "testem",
     "start": "webpack-dev-server --colors --hot --config webpack.examples.config.babel.js",
-    "prepublish": "npm run build",
+    "postinstall": "npm run build",
     "postversion": "git push && git push --tags && npm publish"
   },
   "dependencies": {
