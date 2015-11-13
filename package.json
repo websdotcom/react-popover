@@ -3,7 +3,7 @@
   "scripts": {
     "build-examples": "webpack --colors --config webpack.examples.config.babel.js",
     "deploy-demo": "git checkout gh-pages && git merge master --no-edit && npm run build-examples && git commit -am 'Update demo' && git push && git checkout master",
-    "build": "rm -rf build && babel --out-dir build lib",
+    "build": "rm -rf build && node_modules/.bin/babel --out-dir build lib",
     "dev": "npm start",
     "test": "testem",
     "start": "webpack-dev-server --colors --hot --config webpack.examples.config.babel.js",
