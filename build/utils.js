@@ -14,6 +14,8 @@ var _objectAssignPolyfill = require('object.assign/polyfill');
 
 var _objectAssignPolyfill2 = _interopRequireDefault(_objectAssignPolyfill);
 
+var _platform = require('./platform');
+
 var assign = (0, _objectAssignPolyfill2['default'])();
 
 var arrayify = function arrayify(x) {
@@ -39,8 +41,18 @@ var findDOMNode = function findDOMNode(component) {
   return supportsFindDOMNode ? _react2['default'].findDOMNode(component) : component.getDOMNode();
 };
 
+var noop = function noop() {
+  return undefined;
+};
+
+var clientOnly = function clientOnly(f) {
+  return _platform.isClient ? f : noop;
+};
+
 exports.assign = assign;
 exports.arrayify = arrayify;
 exports.find = find;
 exports.equalRecords = equalRecords;
 exports.findDOMNode = findDOMNode;
+exports.noop = noop;
+exports.clientOnly = clientOnly;

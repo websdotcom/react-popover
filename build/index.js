@@ -32,6 +32,8 @@ var _cssVendor = require('css-vendor');
 
 var _cssVendor2 = _interopRequireDefault(_cssVendor);
 
+var _platform = require('./platform');
+
 var _utils = require('./utils');
 
 var _popoverTip = require('./popover-tip');
@@ -39,14 +41,19 @@ var _popoverTip = require('./popover-tip');
 var _popoverTip2 = _interopRequireDefault(_popoverTip);
 
 var log = (0, _debug2['default'])('react-popover');
+
+var supportedCSSValue = (0, _utils.clientOnly)(_cssVendor2['default'].supportedValue);
+
 var jsprefix = function jsprefix(x) {
   return '' + _cssVendor2['default'].prefix.js + x;
 };
+
 var cssprefix = function cssprefix(x) {
   return '' + _cssVendor2['default'].prefix.css + x;
 };
+
 var cssvalue = function cssvalue(prop, value) {
-  return _cssVendor2['default'].supportedValue(prop, value) || cssprefix(value);
+  return supportedCSSValue(prop, value) || cssprefix(value);
 };
 
 var coreStyle = {
@@ -76,7 +83,7 @@ var flowToPopoverTranslations = {
 };
 
 var Popover = (0, _react.createClass)({
-  name: 'popover',
+  displayName: 'popover',
   propTypes: {
     body: _react.PropTypes.node.isRequired,
     target: _react.PropTypes.object.isRequired,
@@ -294,6 +301,7 @@ var Popover = (0, _react.createClass)({
     if (didOpen || didChangeTarget) this.enter();else if (didClose) this.exit();
   },
   enter: function enter() {
+    if (_platform.isServer) return;
     log('enter!');
     this.trackPopover();
     this.animateEnter();
@@ -365,7 +373,7 @@ var Popover = (0, _react.createClass)({
     be a nice feature in the future to allow other frames to be used
     such as local elements that further constrain the popover`s world. */
 
-    this.frameEl = window;
+    this.frameEl = _platform.window;
 
     /* Set a general interval for checking if target position changed. There is no way
     to know this information without polling. */
@@ -392,8 +400,8 @@ var Popover = (0, _react.createClass)({
     /* Track user actions on the page. Anything that occurs _outside_ the Popover boundaries
     should close the Popover. */
 
-    window.addEventListener('mousedown', this.checkForOuterAction);
-    window.addEventListener('touchstart', this.checkForOuterAction);
+    _platform.window.addEventListener('mousedown', this.checkForOuterAction);
+    _platform.window.addEventListener('touchstart', this.checkForOuterAction);
 
     /* Kickstart layout at first boot. */
 
@@ -412,8 +420,8 @@ var Popover = (0, _react.createClass)({
     resizeEvent.off(this.frameEl, this.onFrameResize);
     resizeEvent.off(this.containerEl, this.onPopoverResize);
     resizeEvent.off(this.targetEl, this.onTargetResize);
-    window.removeEventListener('mousedown', this.checkForOuterAction);
-    window.removeEventListener('touchstart', this.checkForOuterAction);
+    _platform.window.removeEventListener('mousedown', this.checkForOuterAction);
+    _platform.window.removeEventListener('touchstart', this.checkForOuterAction);
   },
   onTargetResize: function onTargetResize() {
     log('Recalculating layout because _target_ resized!');

@@ -6,6 +6,8 @@ Object.defineProperty(exports, '__esModule', {
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var _platform = require('./platform');
+
 var _utils = require('./utils');
 
 /* Axes System
@@ -66,7 +68,7 @@ var El = {};
 
 El.calcBounds = function (el) {
 
-  if (el === window) {
+  if (el === _platform.window) {
     return {
       x: 0,
       y: 0,
@@ -90,11 +92,11 @@ El.calcBounds = function (el) {
 };
 
 El.calcSize = function (el) {
-  return el === window ? { w: el.innerWidth, h: el.innerHeight } : { w: el.offsetWidth, h: el.offsetHeight };
+  return el === _platform.window ? { w: el.innerWidth, h: el.innerHeight } : { w: el.offsetWidth, h: el.offsetHeight };
 };
 
 El.calcScrollSize = function (el) {
-  return el === window ? {
+  return el === _platform.window ? {
     w: el.scrollX || el.pageXOffset,
     h: el.scrollY || el.pageYOffset
   } : { w: el.scrollLeft, h: el.scrollTop };
