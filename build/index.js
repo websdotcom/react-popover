@@ -150,7 +150,9 @@ var Popover = (0, _react.createClass)({
     this.zone = zone;
     log('zone', zone);
 
-    this.state.standing = zone.standing;
+    this.setState({
+      standing: zone.standing
+    });
 
     var axis = Layout.axes[zone.flow];
     log('axes', axis);
