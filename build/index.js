@@ -120,7 +120,7 @@ var Popover = (0, _react.createClass)({
     if (this.measureTargetBounds()) this.resolvePopoverLayout();
   },
   resolvePopoverLayout: function resolvePopoverLayout() {
-    if (!this.isMounted) return;
+    if (!this.isMounted()) return;
 
     /* Find the optimal zone to position self. Measure the size of each zone and use the one with
     the greatest area. */

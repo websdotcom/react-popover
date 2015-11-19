@@ -200,7 +200,7 @@ var calcRelPos = function calcRelPos(zone, masterBounds, slaveSize) {
   var crossStart = place(zone.flow, 'cross', crossAlign, masterBounds, slaveSize);
   var crossSize = slaveSize[cross.size];
 
-  return (_ref = {}, _defineProperty(_ref, main.start, mainStart), _defineProperty(_ref, 'mainLength', mainSize), _defineProperty(_ref, main.end, mainStart + mainSize), _defineProperty(_ref, cross.start, crossStart), _defineProperty(_ref, 'crossLength', crossSize), _defineProperty(_ref, cross.end, crossStart + crossSize), _ref);
+  return _ref = {}, _defineProperty(_ref, main.start, mainStart), _defineProperty(_ref, 'mainLength', mainSize), _defineProperty(_ref, main.end, mainStart + mainSize), _defineProperty(_ref, cross.start, crossStart), _defineProperty(_ref, 'crossLength', crossSize), _defineProperty(_ref, cross.end, crossStart + crossSize), _ref;
 };
 
 exports.types = types;
