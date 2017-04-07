@@ -90,10 +90,13 @@ var Popover = (0, _react.createClass)({
     preferPlace: _react.PropTypes.oneOf(Layout.validTypeValues),
     place: _react.PropTypes.oneOf(Layout.validTypeValues),
     tipSize: _react.PropTypes.number,
+    offsetX: _react.PropTypes.number,
+    offsetY: _react.PropTypes.number,
     refreshIntervalMs: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.bool]),
     isOpen: _react.PropTypes.bool,
     onOuterAction: _react.PropTypes.func,
-    enterExitTransitionDurationMs: _react.PropTypes.number
+    enterExitTransitionDurationMs: _react.PropTypes.number,
+    align: _react.PropTypes.string
   },
   getInitialState: function getInitialState() {
     return {
@@ -109,11 +112,14 @@ var Popover = (0, _react.createClass)({
       preferPlace: null,
       place: null,
       offset: 4,
+      offsetX: 0,
+      offsetY: 0,
       isOpen: false,
       onOuterAction: function noOperation() {},
       enterExitTransitionDurationMs: 500,
       target: null,
-      refreshIntervalMs: 200
+      refreshIntervalMs: 200,
+      align: 'center'
     };
   },
   checkTargetReposition: function checkTargetReposition() {
@@ -166,7 +172,7 @@ var Popover = (0, _react.createClass)({
     /* When positioning self on the cross-axis do not exceed frame bounds. The strategy to achieve
     this is thus: First position cross-axis self to the cross-axis-center of the the target. Then,
     offset self by the amount that self is past the boundaries of frame. */
-    var pos = Layout.calcRelPos(zone, tb, this.size);
+    var pos = Layout.calcRelPos(zone, tb, this.size, this.props.align);
 
     /* Offset allows users to control the distance betweent the tip and the target. */
     pos[axis.main.start] += this.props.offset * zone.order;
@@ -229,8 +235,8 @@ var Popover = (0, _react.createClass)({
     /* Apply Absolute Positioning. */
 
     log('pos', pos);
-    this.containerEl.style.top = pos.y + 'px';
-    this.containerEl.style.left = pos.x + 'px';
+    this.containerEl.style.top = pos.y + this.props.offsetY + 'px';
+    this.containerEl.style.left = pos.x + this.props.offsetX + 'px';
 
     /* Calculate Tip Position */
 

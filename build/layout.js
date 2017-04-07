@@ -55,11 +55,15 @@ var centerOfBoundsFromBounds = function centerOfBoundsFromBounds(flow, axis, bou
 
 var place = function place(flow, axis, align, bounds, size) {
   var axisProps = axes[flow][axis];
-  return align === 'center' ? centerOfBounds(flow, axis, bounds) - centerOfSize(flow, axis, size) : align === 'end' ? bounds[axisProps.end] : align === 'start'
-  /* DOM rendering unfolds leftward. Therefore if the slave is positioned before
-  the master then the slave`s position must in addition be pulled back
-  by its [the slave`s] own length. */
-  ? bounds[axisProps.start] - size[axisProps.size] : null;
+  if (axis === 'main') {
+    return align === 'center' ? centerOfBounds(flow, axis, bounds) - centerOfSize(flow, axis, size) : align === 'end' ? bounds[axisProps.end] : align === 'start'
+    /* DOM rendering unfolds leftward. Therefore if the slave is positioned before
+    the master then the slave`s position must in addition be pulled back
+    by its [the slave`s] own length. */
+    ? bounds[axisProps.start] - size[axisProps.size] : null;
+  } else {
+    return align === 'center' ? centerOfBounds(flow, axis, bounds) - centerOfSize(flow, axis, size) : align === 'end' ? bounds[axisProps.end] : align === 'start' ? bounds[axisProps.start] : null;
+  }
 };
 
 /* Element Layout Queries */
@@ -186,7 +190,7 @@ var pickZone = function pickZone(opts, frameBounds, targetBounds, size) {
 
 /* TODO Document this. */
 
-var calcRelPos = function calcRelPos(zone, masterBounds, slaveSize) {
+var calcRelPos = function calcRelPos(zone, masterBounds, slaveSize, align) {
   var _ref;
 
   var _axes$zone$flow = axes[zone.flow];
@@ -194,10 +198,9 @@ var calcRelPos = function calcRelPos(zone, masterBounds, slaveSize) {
   var cross = _axes$zone$flow.cross;
 
   /* TODO: The slave is hard-coded to align cross-center with master. */
-  var crossAlign = 'center';
   var mainStart = place(zone.flow, 'main', zone.side, masterBounds, slaveSize);
   var mainSize = slaveSize[main.size];
-  var crossStart = place(zone.flow, 'cross', crossAlign, masterBounds, slaveSize);
+  var crossStart = place(zone.flow, 'cross', align, masterBounds, slaveSize);
   var crossSize = slaveSize[cross.size];
 
   return _ref = {}, _defineProperty(_ref, main.start, mainStart), _defineProperty(_ref, 'mainLength', mainSize), _defineProperty(_ref, main.end, mainStart + mainSize), _defineProperty(_ref, cross.start, crossStart), _defineProperty(_ref, 'crossLength', crossSize), _defineProperty(_ref, cross.end, crossStart + crossSize), _ref;
