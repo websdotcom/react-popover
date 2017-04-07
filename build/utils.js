@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _objectAssignPolyfill = require('object.assign/polyfill');
 
 var _objectAssignPolyfill2 = _interopRequireDefault(_objectAssignPolyfill);
@@ -38,7 +42,7 @@ var equalRecords = function equalRecords(o1, o2) {
 var supportsFindDOMNode = Number(_react2['default'].version.split('.')[1]) >= 13;
 
 var findDOMNode = function findDOMNode(component) {
-  return supportsFindDOMNode ? _react2['default'].findDOMNode(component) : component.getDOMNode();
+  return _reactDom2['default'].findDOMNode(component);
 };
 
 var noop = function noop() {
