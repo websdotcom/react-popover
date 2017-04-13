@@ -68,3 +68,22 @@ The polling speed (AKA time between each poll) in milliseconds for checking if a
 ##### `target :: DOM Node`
 
 - The existing DOM node that this popover will orient itself around.
+
+---
+
+##### `align :: String | Null`
+Like `preferPlace` except that the given place is a ***requirement***. The resolver becomes scoped or disabled. Valid values are:
+
+`start` :: Centers the popover on the top/left corner of its targeted edge.
+`center` :: Default value. Centers the popover relative to its target.
+`end` :: Centers the popover on the bottom/right corner of its targeted edge.
+
+---
+
+##### `offsetX :: Number | 0`
+Number of pixels to offet the final popover position by horizontally.
+
+---
+
+##### `offsetY :: Number | 0`
+Number of pixels to offet the final popover position by vertically.
