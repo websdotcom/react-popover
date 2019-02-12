@@ -6,10 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -37,9 +33,6 @@ var equalRecords = function equalRecords(o1, o2) {
     if (o1[key] !== o2[key]) return false;
   }return true;
 };
-
-/* React 12<= / >=13 compatible findDOMNode function. */
-var supportsFindDOMNode = Number(_react2['default'].version.split('.')[1]) >= 13;
 
 var findDOMNode = function findDOMNode(component) {
   return _reactDom2['default'].findDOMNode(component);

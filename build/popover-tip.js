@@ -6,11 +6,15 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _react = require('react');
+var _createReactClass = require('create-react-class');
 
-var _react2 = _interopRequireDefault(_react);
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var PopoverTip = _react2['default'].createClass({
+var _reactDomFactories = require('react-dom-factories');
+
+var _reactDomFactories2 = _interopRequireDefault(_reactDomFactories);
+
+var PopoverTip = (0, _createReactClass2['default'])({
   name: 'tip',
   render: function render() {
     var direction = this.props.direction;
@@ -25,7 +29,7 @@ var PopoverTip = _react2['default'].createClass({
       width: isPortrait ? crossLength : mainLength,
       height: isPortrait ? mainLength : crossLength
     };
-    var triangle = _react.DOM.svg(props, _react.DOM.polygon({
+    var triangle = _reactDomFactories2['default'].svg(props, _reactDomFactories2['default'].polygon({
       className: 'Popover-tipShape',
       points: points
     }));
