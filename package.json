@@ -26,7 +26,7 @@
   "author": "Jason Kuhrt <jasonkuhrt@me.com> (http://jasonkuhrt.com/)",
   "name": "@vpdigital/react-popover",
   "homepage": "https://github.com/littlebits/react-popover",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "build/index.js",
   "description": "A specification backed popover for react",
   "devDependencies": {
