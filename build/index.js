@@ -302,11 +302,6 @@ var Popover = (0, _createReactClass2['default'])({
     this.setState({ toggle: true, exited: false });
   },
   close: function close() {
-    /* TODO?: we currently do not setup any `entering` state flag because
-    nothing would really need to depend on it. Stopping animations is currently nothing
-    more than clearing some timeouts which are safe to clear even if undefined. The
-    primary reason for `exiting` state is for the `layerRender` logic. */
-    this.animateEnterStop();
     this.setState({ toggle: false });
   },
   componentDidUpdate: function componentDidUpdate(propsPrev, statePrev) {
@@ -352,13 +347,7 @@ var Popover = (0, _createReactClass2['default'])({
       _this.setState({ exited: true, exiting: false });
     }, this.props.enterExitTransitionDurationMs);
   },
-  animateEnterStop: function animateEnterStop() {
-    clearTimeout(this.enteringAnimationTimer1);
-    clearTimeout(this.enteringAnimationTimer2);
-  },
   animateEnter: function animateEnter() {
-    var _this2 = this;
-
     /* Prepare `entering` style so that we can then animate it toward `entered`. */
 
     this.containerEl.style.transform = flowToPopoverTranslations[this.zone.flow] + '(' + this.zone.order * 50 + 'px)';
@@ -367,18 +356,17 @@ var Popover = (0, _createReactClass2['default'])({
 
     /* After initial layout apply transition animations. */
 
-    this.enteringAnimationTimer1 = setTimeout(function () {
-      _this2.tipEl.style.transition = 'transform 150ms ease-in';
-      _this2.tipEl.style[jsprefix('Transition')] = cssprefix('transform') + ' 150ms ease-in';
-      _this2.containerEl.style.transitionProperty = 'top, left, opacity, transform';
-      _this2.containerEl.style.transitionDuration = '500ms';
-      _this2.containerEl.style.transitionTimingFunction = 'cubic-bezier(0.230, 1.000, 0.320, 1.000)';
-      _this2.enteringAnimationTimer2 = setTimeout(function () {
-        _this2.containerEl.style.opacity = '1';
-        _this2.containerEl.style.transform = 'translateY(0)';
-        _this2.containerEl.style[jsprefix('Transform')] = _this2.containerEl.style.transform;
-      }, 0);
-    }, 0);
+    /* Hack: http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes */
+    this.containerEl.offsetHeight;
+
+    this.tipEl.style.transition = 'transform 150ms ease-in';
+    this.tipEl.style[jsprefix('Transition')] = cssprefix('transform') + ' 150ms ease-in';
+    this.containerEl.style.transitionProperty = 'top, left, opacity, transform';
+    this.containerEl.style.transitionDuration = '500ms';
+    this.containerEl.style.transitionTimingFunction = 'cubic-bezier(0.230, 1.000, 0.320, 1.000)';
+    this.containerEl.style.opacity = '1';
+    this.containerEl.style.transform = 'translateY(0)';
+    this.containerEl.style[jsprefix('Transform')] = this.containerEl.style.transform;
   },
   trackPopover: function trackPopover() {
     var minScrollRefreshIntervalMs = 200;
