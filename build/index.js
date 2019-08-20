@@ -290,7 +290,7 @@ var Popover = (0, _createReactClass2['default'])({
     this.targetEl = this.props.target;
     if (this.props.isOpen) this.enter();
   },
-  componentWillReceiveProps: function componentWillReceiveProps(propsNext) {
+  UNSAFE_componentWillReceiveProps: function UNSAFE_componentWillReceiveProps(propsNext) {
     //log(`Component received props!`, propsNext)
     var willOpen = !this.props.isOpen && propsNext.isOpen;
     var willClose = this.props.isOpen && !propsNext.isOpen;
